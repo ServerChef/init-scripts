@@ -62,3 +62,5 @@ if [ ! -f "/etc/nginx/sites-available/serverchef.local" ]; then
     systemctl restart nginx
 fi
 
+
+systemctl restart supervisord.service
