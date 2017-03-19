@@ -81,7 +81,7 @@ server {
  	listen 80;
     listen [::]:80;
 
-    server_name ssh.serverchef.local;
+    server_name helpers.serverchef.local;
 
     location / {
         proxy_pass http://unix:/opt/serverchef/components/serverchef-system-helpers/server.socket;

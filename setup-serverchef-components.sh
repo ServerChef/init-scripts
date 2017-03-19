@@ -1,8 +1,10 @@
 #!/bin/sh
 
-cd /opt/serverchef
-mkdir components -p && cd components
+mkdir /opt/serverchef/components -p 
+cd /opt/serverchef/components
 
+
+ln -s /opt/serverchef/init-scripts/gotty-runner.sh /opt/serverchef/components/gotty-runner.sh
 
 ########################
 # ServerChef-UI
@@ -22,17 +24,13 @@ yarn install && yarn run build
 ########################
 # ServerChef System Helpers
 ########################
+cd /opt/serverchef/components
 if [ ! -d "./serverchef-system-helpers" ]; then
     git clone https://github.com/ServerChef/serverchef-system-helpers.git --depth 1
     cd serverchef-system-helpers
 else
     cd serverchef-system-helpers && git pull
 fi
-virtualenv ssh
-source ssh/bin/activate
-pip install -r requirements.txt
-python main.py
-deactivate
 ########################
 
 
@@ -56,8 +54,7 @@ deactivate
 # copy virtualhost for serverchef.local
 ########################
 if [ ! -f "/etc/nginx/sites-available/serverchef.local" ]; then
-    cd /opt/serverchef/init-scripts
-    cp confs/nginx/serverchef.local /etc/nginx/sites-available/
+    ln -s /opt/serverchef/init-scripts/confs/nginx/serverchef.local /etc/nginx/sites-available/
     ln -s /etc/nginx/sites-available/serverchef.local /etc/nginx/sites-enabled/serverchef.local
     systemctl restart nginx
 fi

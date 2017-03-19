@@ -11,13 +11,14 @@ export DEBIAN_FRONTEND=noninteractive
 
 ##############################
 
-
+mkdir ~/.serverchef/tmp -p
+mkdir ~/.serverchef/config -p
 
 ##############################
 # Install the basic components
 ##############################
 
-apt-get install -y vim curl tree
+apt-get install -y vim curl tree tmux
 
 # customize ~/.vimrc
 printf '" turn on syntax highlighting\n syntax on\n\n' > ~/.vimrc
@@ -48,7 +49,6 @@ if [ "$LINE_COUNT" -eq "0" ]; then
 	curl https://www.dotdeb.org/dotdeb.gpg | sudo apt-key add -
 	echo 'deb http://packages.dotdeb.org jessie all' >> /etc/apt/sources.list
 	echo 'deb-src http://packages.dotdeb.org jessie all' >> /etc/apt/sources.list
-	apt-get update
 fi
 
 # for yarn
@@ -58,6 +58,7 @@ if [ "$LINE_COUNT" -eq "0" ]; then
 	echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
 fi
 
+apt-get update
 ##############################
 
 
@@ -101,6 +102,7 @@ if [ ! -f "/etc/supervisord.conf" ]; then
     echo "Creating /etc/supervisord.conf"
     ln -s /opt/serverchef/init-scripts/confs/supervisord.conf /etc/supervisord.conf
     ln -s /opt/serverchef/init-scripts/confs/systemd/supervisord.service /etc/systemd/system/supervisord.service
+    systemct enable supervisord.service
     systemct start supervisord.service
 fi
 ##############################
