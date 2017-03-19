@@ -17,7 +17,7 @@ else
 	cd serverchef-ui && git pull
 fi
 	
-yarn install --production && yarn run build
+yarn install && yarn run build
 
 
 
