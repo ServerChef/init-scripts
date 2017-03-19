@@ -29,7 +29,8 @@ printf 'set shiftwidth=4\n' >> ~/.vimrc
 printf 'set expandtab\n' >> ~/.vimrc
 
 # customize ~/.bashrc
-printf '# colors on ls\nalias ls="ls --color=auto"' >  ~/.bashrc
+printf '# colors on ls\nalias ls="ls --color=auto"\n' >  ~/.bashrc
+printf '# Set default editor: nano vs vim\nexport EDITOR=vim\n' >> ~/.bashrc
 
 
 ##############################
