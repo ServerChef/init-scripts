@@ -17,7 +17,7 @@ else
 	cd serverchef-ui && git pull
 fi
 	
-yarn install && yarn run build
+yarn install --production && yarn run build
 
 
 
@@ -37,7 +37,15 @@ fi
 ########################
 # Gulp task runner
 ########################
-
+cd /opt/serverchef/components
+if [ ! -d "./gulp-task-runner" ]; then
+    git clone https://github.com/ServerChef/gulp-task-runner.git --depth 1
+    cd gulp-task-runner
+else
+    cd gulp-task-runner && git pull
+fi
+npm install --production
+npm run build
 ########################
 
 
@@ -45,7 +53,15 @@ fi
 ########################
 # Log parser
 ########################
-
+cd /opt/serverchef/components
+if [ ! -d "./log-parser" ]; then
+    git clone https://github.com/ServerChef/log-parser.git --depth 1
+    cd log-parser
+else
+    cd log-parser && git pull
+fi
+npm install --production
+npm run build
 ########################
 
 
@@ -56,8 +72,7 @@ fi
 if [ ! -f "/etc/nginx/sites-available/serverchef.local" ]; then
     ln -s /opt/serverchef/init-scripts/confs/nginx/serverchef.local /etc/nginx/sites-available/
     ln -s /etc/nginx/sites-available/serverchef.local /etc/nginx/sites-enabled/serverchef.local
-    systemctl restart nginx
 fi
 
-
 systemctl restart supervisord.service
+systemctl restart nginx
