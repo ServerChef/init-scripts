@@ -66,6 +66,11 @@ fi
 # server dev tools
 ##############################
 
+### Install gotty
+cd ~/.serverchef/tmp
+wget "https://github.com/yudai/gotty/releases/download/pre-release/gotty_linux_amd64.tar.gz"
+tar -xvzf gotty_linux_amd64.tar.gz
+cp gotty /usr/local/bin
 
 
 ##############################
@@ -94,8 +99,9 @@ pip install supervisor
 ##############################
 if [ ! -f "/etc/supervisord.conf" ]; then
     echo "Creating /etc/supervisord.conf"
-    echo_supervisord_conf > /etc/supervisord.conf
-    supervisord
+    ln -s /opt/serverchef/init-scripts/confs/supervisord.conf /etc/supervisord.conf
+    ln -s /opt/serverchef/init-scripts/confs/systemd/supervisord.service /etc/systemd/system/supervisord.service
+    systemct start supervisord.service
 fi
 ##############################
 
