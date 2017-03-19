@@ -103,8 +103,7 @@ if [ ! -f "/etc/supervisord.conf" ]; then
     echo "Creating /etc/supervisord.conf"
     ln -s /opt/serverchef/init-scripts/confs/supervisord.conf /etc/supervisord.conf
     ln -s /opt/serverchef/init-scripts/confs/systemd/supervisord.service /etc/systemd/system/supervisord.service
-    systemct enable supervisord.service
-    systemct start supervisord.service
+    systemctl enable supervisord.service
 fi
 ##############################
 
